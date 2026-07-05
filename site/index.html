@@ -91,7 +91,7 @@
   .sec-head h2{font-size:34px; font-weight:700; color:var(--text);}
   #projekte{background:var(--bg);}
   #stack{background:var(--alt);}
-  #werdegang{background:var(--bg);}
+  #werdegang{background:var(--alt);}
 
   /* PROJECT CARDS */
   .cards{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
@@ -117,11 +117,29 @@
   .stack-card .t{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--text);}
   .stack-card .d{font-size:13px; line-height:1.7; color:var(--muted);}
 
+  /* SELFHOST TERMINAL (Easter Egg) */
+  #selfhost{background:var(--bg);}
+  .term{max-width:820px; margin:0 auto; border-radius:14px; overflow:hidden; border:1px solid #232c3d; background:#0c1220; box-shadow:0 16px 40px -20px rgba(0,0,0,.5);}
+  .term-head{display:flex; align-items:center; gap:8px; padding:12px 16px; background:#111a2e; border-bottom:1px solid #1c2740;}
+  .term-dot{width:11px; height:11px; border-radius:50%;}
+  .term-title{margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#8695ad;}
+  .term-body{padding:20px 20px 6px;}
+  .term-block{margin-bottom:18px;}
+  .term-comment{font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.6; color:#5f6b81; margin-bottom:4px;}
+  .term-line{display:flex; align-items:flex-start; gap:10px;}
+  .term-cmd{flex:1; min-width:0; margin:0; padding-bottom:6px; overflow-x:auto; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.7; color:#e8ecf3; white-space:pre;}
+  .term-cmd .p{color:#5b93ff; user-select:none;}
+  .term-copy{cursor:pointer; flex:none; padding:4px 10px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#93a0b5; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:6px; transition:background .15s, color .15s, border-color .15s;}
+  .term-copy:hover{background:rgba(255,255,255,.12); color:#e8ecf3;}
+  .term-copy.ok{color:#3fdd78; border-color:rgba(63,221,120,.45);}
+  .term-note{margin:18px auto 0; max-width:820px; font-size:13px; color:var(--muted); text-align:center;}
+  .term-note a{color:var(--accent);}
+
   /* WERDEGANG */
   .cv-grid{max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px;}
   .timeline{display:flex; flex-direction:column; gap:26px; border-left:2px solid var(--border); padding-left:24px;}
   .tl-item{position:relative;}
-  .tl-item .dot{position:absolute; left:-31px; top:5px; width:10px; height:10px; border-radius:50%; background:var(--accent); border:2px solid var(--bg);}
+  .tl-item .dot{position:absolute; left:-31px; top:5px; width:10px; height:10px; border-radius:50%; background:var(--accent); border:2px solid var(--alt);}
   .tl-date{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);}
   .tl-role{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; color:var(--text);}
   .tl-org{font-size:13.5px; color:var(--muted);}
@@ -290,6 +308,49 @@
     </div>
   </section>
 
+  <!-- SELFHOST (Easter Egg) -->
+  <section id="selfhost" class="no-print">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Easter Egg · Self-Hosted</span>
+        <h2>Dieses Portfolio läuft im Container</h2>
+      </div>
+      <div class="term reveal">
+        <div class="term-head">
+          <span class="term-dot" style="background:#ff5f57;"></span>
+          <span class="term-dot" style="background:#febc2e;"></span>
+          <span class="term-dot" style="background:#28c840;"></span>
+          <span class="term-title">thorsten@homelab:~</span>
+        </div>
+        <div class="term-body">
+          <div class="term-block">
+            <div class="term-comment"># Public Image von GHCR — Portfolio lokal starten, dann http://localhost:8080</div>
+            <div class="term-line">
+              <pre class="term-cmd"><span class="p">$</span> docker run --rm -p 8080:80 ghcr.io/thorsti/curriculum-vitae:latest</pre>
+              <button class="term-copy" data-cmd="docker run --rm -p 8080:80 ghcr.io/thorsti/curriculum-vitae:latest">Copy</button>
+            </div>
+          </div>
+          <div class="term-block">
+            <div class="term-comment"># Oder gleich ins Cluster — Deployment + Service, dann Port-Forward</div>
+            <div class="term-line">
+              <pre class="term-cmd"><span class="p">$</span> kubectl apply -f https://raw.githubusercontent.com/thorsti/curriculum-vitae/main/deploy/k8s.yaml
+<span class="p">$</span> kubectl port-forward svc/curriculum-vitae 8080:80</pre>
+              <button class="term-copy" data-cmd="kubectl apply -f https://raw.githubusercontent.com/thorsti/curriculum-vitae/main/deploy/k8s.yaml &amp;&amp; kubectl port-forward svc/curriculum-vitae 8080:80">Copy</button>
+            </div>
+          </div>
+          <div class="term-block">
+            <div class="term-comment"># 👀 Der Lebenslauf steckt auch im Image selbst — als OCI-Labels</div>
+            <div class="term-line">
+              <pre class="term-cmd"><span class="p">$</span> docker inspect --format '{{json .Config.Labels}}' ghcr.io/thorsti/curriculum-vitae:latest | jq</pre>
+              <button class="term-copy" data-cmd="docker inspect --format '{{json .Config.Labels}}' ghcr.io/thorsti/curriculum-vitae:latest | jq">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="term-note reveal">Kein Mock-up — das hier ist wirklich ein nginx:alpine-Container aus meinem Homelab. <a href="https://github.com/thorsti/curriculum-vitae" target="_blank" rel="noopener">Quellcode &amp; Dockerfile auf GitHub</a>.</p>
+    </div>
+  </section>
+
   <!-- WERDEGANG -->
   <section id="werdegang">
     <div class="cv-grid">
@@ -372,6 +433,18 @@
     }
     window.addEventListener('beforeprint', function(){
       els.forEach(function(el){ el.classList.add('visible'); });
+    });
+
+    // copy buttons (terminal easter egg)
+    Array.prototype.forEach.call(document.querySelectorAll('.term-copy'), function(btn){
+      btn.addEventListener('click', function(){
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(btn.getAttribute('data-cmd')).then(function(){
+          btn.textContent = '✓';
+          btn.classList.add('ok');
+          setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1600);
+        }).catch(function(){});
+      });
     });
   })();
 </script>
