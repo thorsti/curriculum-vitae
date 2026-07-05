@@ -1,7 +1,8 @@
 FROM nginx:alpine
 
 # --- Standard-OCI-Labels (version/revision/created injiziert der CI-Workflow) ---
-LABEL org.opencontainers.image.title="Thorsten Jezierski — Curriculum Vitae" \
+LABEL maintainer="Thorsten Jezierski <jezierski.thorsten@gmail.com>" \
+      org.opencontainers.image.title="Thorsten Jezierski — Curriculum Vitae" \
       org.opencontainers.image.description="Portfolio & Lebenslauf als nginx-Container. Dieses Image IST der Lebenslauf — siehe die sh.hackflei.cv.*-Labels." \
       org.opencontainers.image.authors="Thorsten Jezierski <jezierski.thorsten@gmail.com>" \
       org.opencontainers.image.url="https://github.com/thorsti/curriculum-vitae" \

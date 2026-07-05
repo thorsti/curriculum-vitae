@@ -335,7 +335,7 @@
             <div class="term-line">
               <pre class="term-cmd"><span class="p">$</span> kubectl apply -f https://raw.githubusercontent.com/thorsti/curriculum-vitae/main/deploy/k8s.yaml
 <span class="p">$</span> kubectl port-forward svc/curriculum-vitae 8080:80</pre>
-              <button class="term-copy" data-cmd="kubectl apply -f https://raw.githubusercontent.com/thorsti/curriculum-vitae/main/deploy/k8s.yaml &amp;&amp; kubectl port-forward svc/curriculum-vitae 8080:80">Copy</button>
+              <button class="term-copy" data-cmd="kubectl apply -f https://raw.githubusercontent.com/thorsti/curriculum-vitae/main/deploy/k8s.yaml &amp;&amp; kubectl rollout status deploy/curriculum-vitae &amp;&amp; kubectl port-forward svc/curriculum-vitae 8080:80">Copy</button>
             </div>
           </div>
           <div class="term-block">
