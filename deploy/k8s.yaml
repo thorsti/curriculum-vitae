@@ -1,0 +1,50 @@
+# Dieses Portfolio als Deployment + Service — bewusst minimal gehalten,
+# damit `kubectl apply -f <raw-URL>` auf jedem Cluster funktioniert.
+# Danach: kubectl port-forward svc/curriculum-vitae 8080:80
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curriculum-vitae
+  labels:
+    app.kubernetes.io/name: curriculum-vitae
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: curriculum-vitae
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: curriculum-vitae
+    spec:
+      containers:
+        - name: nginx
+          image: ghcr.io/thorsti/curriculum-vitae:latest
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: curriculum-vitae
+  labels:
+    app.kubernetes.io/name: curriculum-vitae
+spec:
+  selector:
+    app.kubernetes.io/name: curriculum-vitae
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
