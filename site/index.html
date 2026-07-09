@@ -253,7 +253,69 @@
               <span class="tag">Kubernetes</span><span class="tag">ArgoCD</span><span class="tag">Helm</span><span class="tag">GitOps</span>
             </div>
           </div>
-          <div class="diagram"><span>Architektur-Diagramm</span></div>
+          <div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 345" width="100%" height="100%" role="img" aria-label="Homelab-Architektur: Git zu ArgoCD zu drei MicroK8s-Clustern mit LGTM-Hub und Keycloak als Shared Services">
+            <defs>
+              <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+                <polygon points="0 0, 10 3.5, 0 7" fill="var(--accent)"/>
+              </marker>
+            </defs>
+
+            <!-- Column headers -->
+            <text x="50"  y="22" text-anchor="middle" font-family="sans-serif" font-size="10" fill="var(--muted)">Source</text>
+            <text x="145" y="22" text-anchor="middle" font-family="sans-serif" font-size="10" fill="var(--muted)">CI/CD</text>
+            <text x="292" y="22" text-anchor="middle" font-family="sans-serif" font-size="10" fill="var(--muted)">Cluster</text>
+            <text x="416" y="22" text-anchor="middle" font-family="sans-serif" font-size="10" fill="var(--muted)">Shared</text>
+            <line x1="15" y1="31" x2="445" y2="31" stroke="var(--border)" stroke-width="1"/>
+
+            <!-- Arrows drawn first so boxes appear on top -->
+            <!-- Git → ArgoCD -->
+            <line x1="86" y1="173" x2="105" y2="173" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+            <!-- ArgoCD → hackflei-mgmt (elbow up) -->
+            <path d="M186,163 L215,163 L215,85 L235,85" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+            <!-- ArgoCD → hackflei-prod (straight) -->
+            <line x1="186" y1="173" x2="235" y2="173" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+            <!-- ArgoCD → hackflei-dev (elbow down) -->
+            <path d="M186,183 L215,183 L215,261 L235,261" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+            <!-- hackflei-mgmt → LGTM-Hub (straight) -->
+            <line x1="351" y1="85"  x2="385" y2="85"  stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+            <!-- hackflei-dev → Keycloak (straight) -->
+            <line x1="351" y1="261" x2="385" y2="261" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- Git box -->
+            <rect x="15"  y="148" width="70"  height="50" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="50"  y="171" text-anchor="middle" font-family="sans-serif" font-size="12" fill="var(--text)">Git</text>
+            <text x="50"  y="184" text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">Repository</text>
+
+            <!-- ArgoCD box -->
+            <rect x="105" y="148" width="80"  height="50" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="145" y="171" text-anchor="middle" font-family="sans-serif" font-size="12" fill="var(--text)">ArgoCD</text>
+            <text x="145" y="184" text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">GitOps</text>
+
+            <!-- hackflei-mgmt box -->
+            <rect x="235" y="60"  width="115" height="50" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="292" y="82"  text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--text)">hackflei-mgmt</text>
+            <text x="292" y="97"  text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">MicroK8s</text>
+
+            <!-- hackflei-prod box -->
+            <rect x="235" y="148" width="115" height="50" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="292" y="171" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--text)">hackflei-prod</text>
+            <text x="292" y="184" text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">MicroK8s</text>
+
+            <!-- hackflei-dev box -->
+            <rect x="235" y="236" width="115" height="50" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="292" y="258" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--text)">hackflei-dev</text>
+            <text x="292" y="273" text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">MicroK8s</text>
+
+            <!-- LGTM-Hub box (aligned with mgmt, y-center=85) -->
+            <rect x="385" y="62"  width="62"  height="46" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="416" y="83"  text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--text)">LGTM-Hub</text>
+            <text x="416" y="97"  text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">Monitoring</text>
+
+            <!-- Keycloak box (aligned with dev, y-center=261) -->
+            <rect x="385" y="238" width="62"  height="46" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+            <text x="416" y="259" text-anchor="middle" font-family="sans-serif" font-size="11" fill="var(--text)">Keycloak</text>
+            <text x="416" y="274" text-anchor="middle" font-family="sans-serif" font-size="9"  fill="var(--muted)">Identity</text>
+          </svg></div>
         </article>
 
         <article class="card reveal">
