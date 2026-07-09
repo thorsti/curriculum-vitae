@@ -180,6 +180,22 @@
     .nav-link{padding:6px 8px; font-size:12.5px;}
   }
 
+  @media (max-width:600px){
+    .nav{padding:12px 16px;}
+    .brand-name{display:none;}
+    .nav-links{gap:2px; flex-wrap:wrap;}
+    .nav-link{padding:5px 6px; font-size:12px;}
+    .btn-toggle{padding:5px 8px; font-size:12px; margin-left:2px;}
+  }
+
+  @media (max-width:480px){
+    .nav{padding:10px 12px;}
+    .nav-links{gap:2px; flex-wrap:wrap; flex:1;}
+    .nav-link{padding:4px 5px; font-size:11px;}
+    .btn-toggle{padding:4px 6px; font-size:11px;}
+    .brand-mark{width:20px; height:20px; font-size:11px;}
+  }
+
   /* PRINT */
   @media print{
     .no-print{display:none !important;}
