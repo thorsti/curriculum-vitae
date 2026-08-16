@@ -53,3 +53,15 @@ jobs:
             org.opencontainers.image.created=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # ── Housekeeping: alte, nur mit Commit-SHA getaggte GHCR-Versionen weg ──
+      # Multi-Arch-sicher — Details in .github/scripts/prune-ghcr.sh.
+      # Ohne Secret GHCR_CLEANUP_TOKEN überspringt sich der Schritt selbst.
+      - name: Prune alte GHCR-Versionen
+        if: github.ref == 'refs/heads/main'
+        env:
+          OWNER: ${{ github.repository_owner }}
+          PKG: curriculum-vitae
+          KEEP: '10'
+          GH_TOKEN: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+        run: bash .github/scripts/prune-ghcr.sh
